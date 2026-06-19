@@ -1,6 +1,5 @@
 fn main() {
-    let result = lex("1 + 2");
-    println!("{:?}", result);
+    println!("{:?}", lex("12 + 3"))
 }
 
 #[derive(Debug, PartialEq, Clone)]
@@ -43,4 +42,21 @@ fn lex(source: &str) -> Vec<Token> {
 
     tokens.push(Token::Eof);
     tokens
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn lexes_numbers_and_operators() {
+        let result = lex("12 + 3");
+        assert_eq!(result, vec![
+            Token::Number(12.0),
+            Token::Plus,
+            Token::Number(3.0),
+            Token::Eof,
+        ]);
+    }
 }
